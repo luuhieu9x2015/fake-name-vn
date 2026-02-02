@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Fake Name VN</title>
-      <link rel="manifest" href="manifest.json" />
+    <link rel="manifest" href="manifest.json" />
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -13,101 +13,78 @@
         align-items: center;
         height: 100vh;
       }
+
       .box {
         background: white;
-        padding: 20px 30px;
-        border-radius: 10px;
+        padding: 25px;
+        border-radius: 12px;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         text-align: center;
+        width: 90%;
+        max-width: 420px;
       }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      /* container cho button */
+      .btn-group {
+        display: flex;
+        gap: 10px;
+      }
+
       button {
-        margin: 8px;
-        padding: 10px 16px;
-        font-size: 15px;
+        flex: 1; /* mỗi button chiếm 50% */
+        padding: 18px 0;
+        font-size: 18px;
+        font-weight: bold;
         cursor: pointer;
-        border-radius: 6px;
+        border-radius: 10px;
         border: none;
         background: #4caf50;
         color: white;
       }
+
       button:hover {
         opacity: 0.9;
       }
+
       .result {
-        margin-top: 15px;
+        margin-top: 20px;
         font-size: 18px;
         font-weight: bold;
       }
     </style>
   </head>
+
   <body>
     <div class="box">
       <h2>Fake Name VN 🇻🇳</h2>
 
-      <button onclick="copyFirstName()">Copy Họ</button>
-      <button onclick="copyLastName()">Copy Tên</button>
+      <div class="btn-group">
+        <button onclick="copyFirstName()">Copy Họ</button>
+        <button onclick="copyLastName()">Copy Tên</button>
+      </div>
 
       <div class="result" id="result"></div>
     </div>
 
     <script>
       const firstNames = [
-        "Nguyễn",
-        "Trần",
-        "Lê",
-        "Phạm",
-        "Hoàng",
-        "Võ",
-        "Đặng",
-        "Bùi",
-        "Đỗ",
-        "Phan",
-        "Vũ",
-        "Ngô",
-        "Lý",
-        "Đoàn",
-        "Lâm",
-        "Trịnh",
-        "Lưu",
+        "Nguyễn","Trần","Lê","Phạm","Hoàng","Võ","Đặng","Bùi",
+        "Đỗ","Phan","Vũ","Ngô","Lý","Đoàn","Lâm","Trịnh","Lưu",
       ];
 
       const lastNames = [
-        "Bảo Ngọc",
-        "Diệu Linh",
-        "Đan Thanh",
-        "Gia Hân",
-        "Hải Yến",
-        "Hồng Nhung",
-        "Khánh Linh",
-        "Linh Chi",
-        "Mai Phương",
-        "Minh Châu",
-        "Ngọc Bích",
-        "Phương Thảo",
-        "Thanh Hằng",
-        "Thảo Vy",
-        "Thu Minh",
-        "Thùy Dung",
-        "Tuyết Mai",
-        "Uyên Nhi",
-        "Vân Khánh",
-        "Xuân Mai",
-        "Yến Nhi",
-        "Bảo Trâm",
-        "Diễm My",
-        "Đoan Trang",
-        "Gia Linh",
-        "Hải Hà",
-        "Hồng Hạnh",
-        "Kim Ngân",
-        "Khánh Vy",
-        "Minh Nguyệt",
-        "Ngọc Trâm",
-        "Phương Linh",
-        "Quế Chi",
-        "Thanh Mai",
-        "Trà My",
-        "Tuyết Lan",
+        "Bảo Ngọc","Diệu Linh","Đan Thanh","Gia Hân","Hải Yến",
+        "Hồng Nhung","Khánh Linh","Linh Chi","Mai Phương",
+        "Minh Châu","Ngọc Bích","Phương Thảo","Thanh Hằng",
+        "Thảo Vy","Thu Minh","Thùy Dung","Tuyết Mai","Uyên Nhi",
+        "Vân Khánh","Xuân Mai","Yến Nhi","Bảo Trâm","Diễm My",
+        "Đoan Trang","Gia Linh","Hải Hà","Hồng Hạnh","Kim Ngân",
+        "Khánh Vy","Minh Nguyệt","Ngọc Trâm","Phương Linh",
+        "Quế Chi","Thanh Mai","Trà My","Tuyết Lan",
       ];
 
       function randomItem(arr) {
