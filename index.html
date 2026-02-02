@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fake Name VN</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .box {
+        background: white;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+      }
+      button {
+        margin: 8px;
+        padding: 10px 16px;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 6px;
+        border: none;
+        background: #4caf50;
+        color: white;
+      }
+      button:hover {
+        opacity: 0.9;
+      }
+      .result {
+        margin-top: 15px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <h2>Fake Name VN 🇻🇳</h2>
+
+      <button onclick="copyFirstName()">Copy Họ</button>
+      <button onclick="copyLastName()">Copy Tên</button>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <script>
+      const firstNames = [
+        "Nguyễn",
+        "Trần",
+        "Lê",
+        "Phạm",
+        "Hoàng",
+        "Võ",
+        "Đặng",
+        "Bùi",
+        "Đỗ",
+        "Phan",
+        "Vũ",
+        "Ngô",
+        "Lý",
+        "Đoàn",
+        "Lâm",
+        "Trịnh",
+        "Lưu",
+      ];
+
+      const lastNames = [
+        "Bảo Ngọc",
+        "Diệu Linh",
+        "Đan Thanh",
+        "Gia Hân",
+        "Hải Yến",
+        "Hồng Nhung",
+        "Khánh Linh",
+        "Linh Chi",
+        "Mai Phương",
+        "Minh Châu",
+        "Ngọc Bích",
+        "Phương Thảo",
+        "Thanh Hằng",
+        "Thảo Vy",
+        "Thu Minh",
+        "Thùy Dung",
+        "Tuyết Mai",
+        "Uyên Nhi",
+        "Vân Khánh",
+        "Xuân Mai",
+        "Yến Nhi",
+        "Bảo Trâm",
+        "Diễm My",
+        "Đoan Trang",
+        "Gia Linh",
+        "Hải Hà",
+        "Hồng Hạnh",
+        "Kim Ngân",
+        "Khánh Vy",
+        "Minh Nguyệt",
+        "Ngọc Trâm",
+        "Phương Linh",
+        "Quế Chi",
+        "Thanh Mai",
+        "Trà My",
+        "Tuyết Lan",
+      ];
+
+      function randomItem(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function copyFirstName() {
+        const name = randomItem(firstNames);
+        navigator.clipboard.writeText(name);
+        document.getElementById("result").innerText = "Đã copy Họ: " + name;
+      }
+
+      function copyLastName() {
+        const name = randomItem(lastNames);
+        navigator.clipboard.writeText(name);
+        document.getElementById("result").innerText = "Đã copy Tên: " + name;
+      }
+    </script>
+  </body>
+</html>
