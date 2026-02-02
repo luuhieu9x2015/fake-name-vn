@@ -3,77 +3,81 @@
   <head>
     <meta charset="UTF-8" />
     <title>Fake Name VN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="manifest.json" />
+
     <style>
       body {
+        margin: 0;
         font-family: Arial, sans-serif;
         background: #f5f5f5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
       }
 
-      .box {
-        background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      .header {
+        padding: 20px;
         text-align: center;
-        width: 90%;
-        max-width: 420px;
-      }
-
-      h2 {
-        margin-bottom: 20px;
-      }
-
-      /* container cho button */
-      .btn-group {
-        display: flex;
-        gap: 10px;
-      }
-
-      button {
-        flex: 1; /* mỗi button chiếm 50% */
-        padding: 18px 0;
-        font-size: 18px;
+        font-size: 22px;
         font-weight: bold;
-        cursor: pointer;
-        border-radius: 10px;
-        border: none;
-        background: #4caf50;
-        color: white;
-      }
-
-      button:hover {
-        opacity: 0.9;
       }
 
       .result {
-        margin-top: 20px;
+        text-align: center;
         font-size: 18px;
+        margin-top: 10px;
         font-weight: bold;
+      }
+
+      /* ===== BUTTON FULL SCREEN ===== */
+      .btn-full {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        display: flex;
+      }
+
+      .btn-full button {
+        width: 50vw;
+        height: 80px;
+        font-size: 20px;
+        font-weight: bold;
+        border: none;
+        border-radius: 0;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .btn-first {
+        background: #4caf50;
+      }
+
+      .btn-last {
+        background: #2196f3;
+      }
+
+      .btn-full button:active {
+        opacity: 0.85;
       }
     </style>
   </head>
 
   <body>
-    <div class="box">
-      <h2>Fake Name VN 🇻🇳</h2>
+    <div class="header">Fake Name VN 🇻🇳</div>
 
-      <div class="btn-group">
-        <button onclick="copyFirstName()">Copy Họ</button>
-        <button onclick="copyLastName()">Copy Tên</button>
-      </div>
+    <div class="result" id="result">
+      Bấm nút để copy
+    </div>
 
-      <div class="result" id="result"></div>
+    <!-- BUTTONS -->
+    <div class="btn-full">
+      <button class="btn-first" onclick="copyFirstName()">Copy Họ</button>
+      <button class="btn-last" onclick="copyLastName()">Copy Tên</button>
     </div>
 
     <script>
       const firstNames = [
         "Nguyễn","Trần","Lê","Phạm","Hoàng","Võ","Đặng","Bùi",
-        "Đỗ","Phan","Vũ","Ngô","Lý","Đoàn","Lâm","Trịnh","Lưu",
+        "Đỗ","Phan","Vũ","Ngô","Lý","Đoàn","Lâm","Trịnh","Lưu"
       ];
 
       const lastNames = [
@@ -84,22 +88,39 @@
         "Vân Khánh","Xuân Mai","Yến Nhi","Bảo Trâm","Diễm My",
         "Đoan Trang","Gia Linh","Hải Hà","Hồng Hạnh","Kim Ngân",
         "Khánh Vy","Minh Nguyệt","Ngọc Trâm","Phương Linh",
-        "Quế Chi","Thanh Mai","Trà My","Tuyết Lan",
+        "Quế Chi","Thanh Mai","Trà My","Tuyết Lan"
       ];
 
       function randomItem(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
       }
 
+      // ===== CLIPBOARD SAFE FOR PWABUILDER =====
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text);
+        } else {
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "absolute";
+          textarea.style.left = "-9999px";
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+        }
+      }
+
       function copyFirstName() {
         const name = randomItem(firstNames);
-        navigator.clipboard.writeText(name);
+        copyText(name);
         document.getElementById("result").innerText = "Đã copy Họ: " + name;
       }
 
       function copyLastName() {
         const name = randomItem(lastNames);
-        navigator.clipboard.writeText(name);
+        copyText(name);
         document.getElementById("result").innerText = "Đã copy Tên: " + name;
       }
     </script>
