@@ -27,6 +27,51 @@
         font-weight: bold;
       }
 
+      .form-box {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 400px;
+        margin: auto;
+      }
+
+      .form-box input {
+        padding: 12px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+      }
+
+      .form-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .form-buttons button {
+        flex: 1;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+      }
+
+      .btn-set {
+        background: #ff9800;
+      }
+
+      .btn-clear {
+        background: #f44336;
+      }
+
+      .form-buttons button:active {
+        opacity: 0.85;
+      }
+
       /* ===== BUTTON FULL SCREEN ===== */
       .btn-full {
         position: fixed;
@@ -58,19 +103,34 @@
       .btn-full button:active {
         opacity: 0.85;
       }
+
+      /* tránh bị che bởi button dưới */
+      .spacer {
+        height: 90px;
+      }
     </style>
   </head>
 
   <body>
     <div class="header">Fake Name VN 🇻🇳</div>
 
-    <div class="result" id="result">
-      Bấm nút để copy
+    <div class="form-box">
+      <input id="inputFirst" type="text" placeholder="Nhập Họ (vd: Nguyễn)" />
+      <input id="inputLast" type="text" placeholder="Nhập Tên (vd: Ngọc Hà)" />
+
+      <div class="form-buttons">
+        <button class="btn-set" onclick="setName()">SET</button>
+        <button class="btn-clear" onclick="clearName()">CLEAR</button>
+      </div>
     </div>
+
+    <div class="result" id="result">Bấm nút để copy</div>
+
+    <div class="spacer"></div>
 
     <!-- BUTTONS -->
     <div class="btn-full">
-      <button class="btn-first" onclick="copyFirstName()">Copy Họx</button>
+      <button class="btn-first" onclick="copyFirstName()">Copy Họ</button>
       <button class="btn-last" onclick="copyLastName()">Copy Tên</button>
     </div>
 
@@ -90,6 +150,9 @@
         "Khánh Vy","Minh Nguyệt","Ngọc Trâm","Phương Linh",
         "Quế Chi","Thanh Mai","Trà My","Tuyết Lan"
       ];
+
+      let customFirst = "";
+      let customLast = "";
 
       function randomItem(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
@@ -112,16 +175,37 @@
         }
       }
 
+      function setName() {
+        customFirst = document.getElementById("inputFirst").value.trim();
+        customLast = document.getElementById("inputLast").value.trim();
+
+        let msg = "Đã set: ";
+        msg += (customFirst ? "Họ=" + customFirst : "Họ=Random");
+        msg += " | ";
+        msg += (customLast ? "Tên=" + customLast : "Tên=Random");
+
+        document.getElementById("result").innerText = msg;
+      }
+
+      function clearName() {
+        document.getElementById("inputFirst").value = "";
+        document.getElementById("inputLast").value = "";
+
+        customFirst = "";
+        customLast = "";
+
+        document.getElementById("result").innerText =
+          "Đã clear input → sẽ random lại";
+      }
+
       function copyFirstName() {
-        // const name = randomItem(firstNames);
-        const name = "Nguyễn";
+        const name = customFirst ? customFirst : randomItem(firstNames);
         copyText(name);
         document.getElementById("result").innerText = "Đã copy Họ: " + name;
       }
 
       function copyLastName() {
-        // const name = randomItem(lastNames);
-        const name = "ngọc hà";
+        const name = customLast ? customLast : randomItem(lastNames);
         copyText(name);
         document.getElementById("result").innerText = "Đã copy Tên: " + name;
       }
